@@ -18,6 +18,8 @@ export function ShopProvider({ children }) {
   // wishlist sirf product objects ka array hai (quantity ki zarurat nahi)
   const [wishlist, setWishlist] = useState([]);
 
+  const [pastOrders, setPastOrders] = useState([]);
+
   // ---------- SEARCH / FILTER / SORT STATE ----------
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("All");
@@ -66,6 +68,34 @@ export function ShopProvider({ children }) {
         // Agar quantity 0 ho jaye, item ko cart se hata do
         .filter((item) => item.quantity > 0)
     );
+  };
+
+  const placeOrder = (shippingInfo) => {
+    const newOrder = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }),
+      items: cart,
+      subtotal: cartSubtotal,
+      total: cartTotal,
+      shippingInfo,
+    };
+    setPastOrders((prev) => [newOrder, ...prev]);
+    setCart([]); // Order place hote hi cart khali kar do
+    return newOrder;
+  };
+
+  const reorder = (order) => {
+    order.items.forEach((item) => {
+      setCart((prev) => {
+        const existing = prev.find((p) => p.id === item.id);
+        if (existing) {
+          return prev.map((p) =>
+            p.id === item.id ? { ...p, quantity: p.quantity + item.quantity } : p
+          );
+        }
+        return [...prev, { ...item }];
+      });
+    });
   };
 
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
@@ -211,6 +241,9 @@ export function ShopProvider({ children }) {
     removeFromWishlist,
     isInWishlist,
     wishlistCount,
+    pastOrders,
+    placeOrder,
+    reorder,
   };
 
   return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

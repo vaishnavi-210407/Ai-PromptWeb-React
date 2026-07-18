@@ -1,6 +1,5 @@
 // src/pages/Cart.jsx
-
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -10,13 +9,15 @@ export default function Cart() {
   const { cart, removeFromCart, increaseQuantity, decreaseQuantity, cartSubtotal, cartTotal } =
     useShop();
 
+  const navigate = useNavigate();
+
   const formatPrice = (num) => `₹${num.toLocaleString("en-IN")}`;
 
   return (
     <div className="min-h-screen bg-navy-950 flex flex-col">
       <Navbar />
 
-      <main className="max-w-5xl mx-auto px-4 py-8 flex-1 w-full">
+      <main className="w-full px-6 md:px-10 py-8 flex-1">
         <h1 className="text-2xl font-bold text-gray-100 font-display mb-6">Your Cart</h1>
 
         {cart.length === 0 ? (
@@ -83,7 +84,10 @@ export default function Cart() {
                 <span>Total</span>
                 <span className="text-amber-400">{formatPrice(cartTotal)}</span>
               </div>
-              <button className="w-full bg-amber-500 hover:bg-amber-600 text-navy-950 font-semibold rounded-lg py-2.5 mt-5 transition-colors">
+              <button
+                onClick={() => navigate("/checkout")}
+                className="w-full bg-amber-500 hover:bg-amber-600 text-navy-950 font-semibold rounded-lg py-2.5 mt-5 transition-colors"
+              >
                 Proceed to Checkout
               </button>
             </div>

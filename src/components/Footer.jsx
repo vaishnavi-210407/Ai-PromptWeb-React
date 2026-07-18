@@ -3,7 +3,7 @@
 export default function Footer() {
   return (
     <footer className="bg-navy-900 border-t border-navy-700 mt-12">
-      <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+      <div className="w-full px-6 md:px-10 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
         <div>
           <h4 className="text-amber-400 font-display font-semibold mb-2">AutoVerse</h4>
           <p className="text-gray-400">Your trusted marketplace for new and premium cars.</p>

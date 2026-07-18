@@ -2,7 +2,7 @@
 // Top navbar: logo, search bar, wishlist icon, cart icon (with count), user info, logout
 
 import { Link, useNavigate } from "react-router-dom";
-import { FaShoppingCart, FaHeart, FaUserCircle, FaCarSide } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaUserCircle, FaCarSide, FaBoxOpen } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 import { useShop } from "../context/ShopContext";
 import SearchBar from "./SearchBar";
@@ -19,7 +19,7 @@ export default function Navbar() {
 
   return (
     <header className="bg-navy-900 border-b border-navy-700 sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center gap-4 flex-wrap">
+      <div className="w-full px-6 md:px-10 py-3 flex items-center gap-4 flex-wrap">
         {/* Logo */}
         <Link to="/dashboard" className="flex items-center gap-2 shrink-0">
           <FaCarSide className="text-amber-400 text-2xl" />
@@ -35,6 +35,9 @@ export default function Navbar() {
 
         {/* Right icons */}
         <div className="flex items-center gap-5 ml-auto">
+          <Link to="/orders" className="text-gray-200 hover:text-amber-400 transition-colors" title="My Orders">
+            <FaBoxOpen className="text-xl" />
+          </Link>
           <Link to="/wishlist" className="relative text-gray-200 hover:text-amber-400 transition-colors">
             <FaHeart className="text-xl" />
             {wishlistCount > 0 && (

@@ -34,7 +34,7 @@ export default function ProductDetails() {
     <div className="min-h-screen bg-navy-950 flex flex-col">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
+      <main className="w-full px-6 md:px-10 py-8 flex-1">
         <Link
           to="/dashboard"
           className="inline-flex items-center gap-2 text-gray-400 hover:text-amber-400 text-sm mb-6"
@@ -81,7 +81,7 @@ export default function ProductDetails() {
               {product.stock ? (
                 <span className="text-green-400 font-medium">In Stock</span>
               ) : (
-                <span className="text-red-400 font-medium">Out of Stock</span>
+                <span className="text-red-400 font-medium">Sold Out</span>
               )}
             </p>
 

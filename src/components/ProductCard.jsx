@@ -1,13 +1,20 @@
 // src/components/ProductCard.jsx
 // Reusable card for each car - used in ProductGrid, and can be reused elsewhere
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaStar, FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import { useShop } from "../context/ShopContext";
 
 export default function ProductCard({ product }) {
   const { addToCart, toggleWishlist, isInWishlist } = useShop();
   const inWishlist = isInWishlist(product.id);
+
+  const navigate = useNavigate();
+
+  const handleBuyNow = () => {
+    addToCart(product);
+    navigate("/checkout");
+  };
 
   const formatPrice = (num) => `₹${num.toLocaleString("en-IN")}`;
 
@@ -27,7 +34,7 @@ export default function ProductCard({ product }) {
         )}
         {!product.stock && (
           <span className="absolute top-2 right-2 bg-red-500/90 text-white text-xs font-semibold px-2 py-1 rounded">
-            Out of Stock
+            Sold Out
           </span>
         )}
 
@@ -63,21 +70,30 @@ export default function ProductCard({ product }) {
           )}
         </div>
 
-        <div className="flex gap-2 mt-4">
+        <div className="flex flex-col gap-2.5 mt-4">
           <button
-            onClick={() => addToCart(product)}
+            onClick={handleBuyNow}
             disabled={!product.stock}
-            className="flex-1 flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 disabled:bg-navy-700 disabled:text-gray-500 disabled:cursor-not-allowed text-navy-950 text-sm font-semibold rounded-lg py-2 transition-colors"
+            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-navy-700 disabled:text-gray-500 disabled:cursor-not-allowed text-white text-sm font-semibold rounded-lg py-2.5 transition-colors"
           >
-            <FaShoppingCart className="text-xs" />
-            Add to Cart
+            Buy Now
           </button>
-          <Link
-            to={`/products/${product.id}`}
-            className="flex-1 flex items-center justify-center bg-navy-800 hover:bg-navy-700 border border-navy-700 text-gray-200 text-sm font-medium rounded-lg py-2 transition-colors"
-          >
-            View Details
-          </Link>
+          <div className="flex gap-2.5">
+            <button
+              onClick={() => addToCart(product)}
+              disabled={!product.stock}
+              className="flex-1 flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 disabled:bg-navy-700 disabled:text-gray-500 disabled:cursor-not-allowed text-navy-950 text-sm font-semibold rounded-lg py-2.5 transition-colors"
+            >
+              <FaShoppingCart className="text-xs" />
+              Add to Cart
+            </button>
+            <Link
+              to={`/products/${product.id}`}
+              className="flex-1 flex items-center justify-center bg-navy-800 hover:bg-navy-700 border border-navy-700 text-gray-200 text-sm font-medium rounded-lg py-2.5 transition-colors"
+            >
+              View Details
+            </Link>
+          </div>
         </div>
       </div>
     </div>

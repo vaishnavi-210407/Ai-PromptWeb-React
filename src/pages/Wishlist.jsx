@@ -14,7 +14,7 @@ export default function Wishlist() {
     <div className="min-h-screen bg-navy-950 flex flex-col">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
+      <main className="w-full px-6 md:px-10 py-8 flex-1">
         <h1 className="text-2xl font-bold text-gray-100 font-display mb-6">Your Wishlist</h1>
 
         {wishlist.length === 0 ? (

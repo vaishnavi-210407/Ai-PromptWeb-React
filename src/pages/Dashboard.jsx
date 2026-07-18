@@ -23,7 +23,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-navy-950 flex flex-col">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 py-6 flex-1 w-full">
+      <main className="w-full px-6 md:px-10 py-6 flex-1">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Sidebar + Filters */}
           <div className="flex flex-col gap-4 lg:w-64 shrink-0">
